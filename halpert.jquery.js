@@ -80,7 +80,7 @@ var Halpert = function() {
 
   var bodyLinks = parseLinks(clone.find('body').find('a[rel],link[rel]'), headerLinks),
       mainLinks = halLinks(_.extend(curies, headerLinks, bodyLinks)),
-      mainProperties = parseProperties($('[property]'));
+      mainProperties = parseProperties(clone.find('[property]'));
 
   return _.extend(mainLinks, mainProperties, embedded);
 }
