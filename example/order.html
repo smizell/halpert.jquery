@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" prefix="ea: http://example.com/docs/rels/">
+  <head>
+    <title>Orders - HAL Example</title>
+    <link rel="self" href="/orders">
+    <link rel="next" href="/orders?page=2">
+    <meta name="resource" content="ea:orders">
+
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="../halpert.jquery.js"></script>
+  </head>
+  <style>
+    body { margin: 30px; }
+    div[resource] {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .json { background-color: #eee; }
+  </style>
+  <body>
+    <h1>Example of HTML+RDFa to HAL Translations</h1>
+    <p>
+      The HTML in the body of this document is marked up with RDFa and is then
+      parsed by Halpert, which is displayed on the right.
+    </p>
+    <div class="row">
+      <div class="col-md-6">
+        <div typeof="ea:orders">
+          <h1>Orders</h1>
+          <dl>
+            <dt>Currently Processing</dt>
+            <dd property="currentlyProcessing">14</dd>
+            <dt>Shipped Today</dt>
+            <dd property="shippedToday">20</dd>
+          </dl>
+          <h2>Admin</h2>
+          <a href="/admins/2" rel="ea:admin" title="Fred" class="btn btn-primary">Fred</a>
+          <a href="/admins/5" rel="ea:admin" title="Kate" class="btn btn-primary">Kate</a>
+          <h2>Order List</h2>
+          <div class="orders">
+            <div typeof="ea:order" resource="/orders/123" class="order">
+              <h3>Order 123</h3>
+              <a rel="ea:basket" href="/baskets/98712" class="btn btn-primary">Basket</a>
+              <a rel="ea:customer" href="/customers/7809" class="btn btn-primary">Customer</a>
+              <dl>
+                <dt>Total</dt>
+                <dd property="total">30.00</dd>
+                <dt>Currency</dt>
+                <dd property="currency">USD</dd>
+                <dt>Status</dt>
+                <dd property="status">shipped</dd>
+              </dl>
+            </div>
+            <div typeof="ea:order" resource="/orders/124" class="order">
+              <h3>Order 124</h3>
+              <a rel="ea:basket" href="/baskets/98713" class="btn btn-primary">Basket</a>
+              <a rel="ea:customer" href="/customers/12369" class="btn btn-primary">Customer</a>
+              <dl>
+                <dt>Total</dt>
+                <dd property="total">20.00</dd>
+                <dt>Currency</dt>
+                <dd property="currency">USD</dd>
+                <dt>Status</dt>
+                <dd property="status">processing</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>HAL Output</h2>
+        <pre id="hal"></pre>
+      </div>
+    </div>
+    <script>
+      var hal = Halpert();
+      $('#hal').html(JSON.stringify(hal, null, 2));
+    </script>
+  </body>
+</html>
